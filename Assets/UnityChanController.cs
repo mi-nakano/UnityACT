@@ -24,21 +24,11 @@ public class UnityChanController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		state = animator.GetCurrentAnimatorStateInfo (0);
-		setMoveVector();
-		if (moveVector.Equals (Vector3.zero)) {		// stop
-			animator.SetBool (runId, false);
-		} else {									// running
-			animator.SetBool (runId, true);	
-			controller.Move (moveVector * SPEED);
-			transform.rotation = Quaternion.LookRotation(moveVector);
-		}
-		if (Input.GetKey(KeyCode.Space)) {
-			push_attack = true;
-		} else {
-			push_attack = false;
+		if (state.IsTag ("movable")) {
+			move();
 		}
 
-		if (push_attack) {
+		if (Input.GetKey (KeyCode.Space)) {
 			animator.SetBool("attacking", true);
 			Debug.Log("attack");
 		}
@@ -49,6 +39,17 @@ public class UnityChanController : MonoBehaviour {
 
 	}
 
+	private void move(){
+		setMoveVector ();
+		if (moveVector.Equals (Vector3.zero)) {		// stop
+			animator.SetBool (runId, false);
+		} else {									// running
+			animator.SetBool (runId, true);	
+			controller.Move (moveVector * SPEED);
+			transform.rotation = Quaternion.LookRotation (moveVector);
+		}
+	}
+	
 	private void setMoveVector(){
 		moveVector = Vector3.zero;
 		if (Input.GetKey(KeyCode.UpArrow)) {
