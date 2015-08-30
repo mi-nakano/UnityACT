@@ -8,15 +8,15 @@ public class UnityChanController : MonoBehaviour {
 	private CharacterController controller;
 	private Animator animator;
 	private AnimatorStateInfo state;
-	private int runId;
 	private Vector3 moveVector;
-	private bool push_attack;
+	private int runId, attackId;
 
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController> ();
 		animator = GetComponent<Animator> ();
 		runId = Animator.StringToHash ("is_running");
+		attackId = Animator.StringToHash ("is_attacking");
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
 	}
@@ -25,18 +25,13 @@ public class UnityChanController : MonoBehaviour {
 	void Update () {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 		if (state.IsTag ("movable")) {
+			animator.SetBool (attackId, false);
 			move();
 		}
 
-		if (Input.GetKey (KeyCode.Space)) {
-			animator.SetBool("attacking", true);
-			Debug.Log("attack");
+		if (Input.GetKey (KeyCode.Space) && animator.GetBool(attackId) == false) {
+			animator.SetBool (attackId, true);
 		}
-
-		if (state.IsTag ("attack")) {
-			animator.SetBool ("attacking", false);
-		}
-
 	}
 
 	private void move(){
