@@ -15,8 +15,9 @@ public class UnityChanController : MonoBehaviour {
 		controller = GetComponent<CharacterController> ();
 		animator = GetComponent<Animator> ();
 		runId = Animator.StringToHash ("is_running");
+		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
-		}
+	}
 		
 	// Update is called once per frame
 	void Update () {
