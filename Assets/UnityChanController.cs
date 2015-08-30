@@ -11,6 +11,8 @@ public class UnityChanController : MonoBehaviour {
 	private Vector3 moveVector;
 	private int runId, attackId;
 
+	public GameObject Bullet;
+
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController> ();
@@ -31,6 +33,10 @@ public class UnityChanController : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.Space) && animator.GetBool(attackId) == false) {
 			animator.SetBool (attackId, true);
+			// shoot bullets
+			Instantiate (Bullet,
+			             new Vector3 (transform.position.x, transform.position.y, transform.position.z + 1),
+			             transform.rotation);
 		}
 	}
 
