@@ -606,7 +606,12 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: 'MuscleClip ''unitychan_WAIT00'' conversion warning:
+      ''Character1_Reference/Character1_Hips/Character1_Spine'' is between humanoid
+      transforms and has rotation animation. This might lower retargeting quality.
+
+
+'
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 0
