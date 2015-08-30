@@ -7,8 +7,10 @@ public class UnityChanController : MonoBehaviour {
 
 	private CharacterController controller;
 	private Animator animator;
+	private AnimatorStateInfo state;
 	private int runId;
 	private Vector3 moveVector;
+	private bool push_attack;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +23,7 @@ public class UnityChanController : MonoBehaviour {
 		
 	// Update is called once per frame
 	void Update () {
+		state = animator.GetCurrentAnimatorStateInfo (0);
 		setMoveVector();
 		if (moveVector.Equals (Vector3.zero)) {		// stop
 			animator.SetBool (runId, false);
@@ -29,6 +32,21 @@ public class UnityChanController : MonoBehaviour {
 			controller.Move (moveVector * SPEED);
 			transform.rotation = Quaternion.LookRotation(moveVector);
 		}
+		if (Input.GetKey(KeyCode.Space)) {
+			push_attack = true;
+		} else {
+			push_attack = false;
+		}
+
+		if (push_attack) {
+			animator.SetBool("attacking", true);
+			Debug.Log("attack");
+		}
+
+		if (state.IsTag ("attack")) {
+			animator.SetBool ("attacking", false);
+		}
+
 	}
 
 	private void setMoveVector(){
