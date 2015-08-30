@@ -5,20 +5,20 @@ using System.Collections;
 public class UnityChanController : MonoBehaviour {
 	
 	private Animator animator;
-	private int doWalkId;
+	private int runId;
 	
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator> ();
-		doWalkId = Animator.StringToHash ("is_running");
+		runId = Animator.StringToHash ("is_running");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey(KeyCode.UpArrow)) {
-			animator.SetBool(doWalkId, true);
+			animator.SetBool(runId, true);
 		}else{
-			animator.SetBool(doWalkId, false);
+			animator.SetBool(runId, false);
 		}
 	}
 }
