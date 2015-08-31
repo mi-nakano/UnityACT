@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerBullet : MonoBehaviour {
-	private const int SPEED = 3;
+	private const int SPEED = 10;
 	private const int ALIVE_TIME = 100;
 
 	private int counter;
