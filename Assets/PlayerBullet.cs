@@ -2,15 +2,22 @@
 using System.Collections;
 
 public class PlayerBullet : MonoBehaviour {
-	public int speed = 3;
+	private const int SPEED = 3;
+	private const int ALIVE_TIME = 100;
+
+	private int counter;
 
 	// Use this for initialization
 	void Start () {
-		GetComponent<Rigidbody>().velocity = transform.forward.normalized * speed;
+		GetComponent<Rigidbody>().velocity = transform.forward.normalized * SPEED;
+		counter = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		counter ++;
+		if (counter > ALIVE_TIME) {
+			Destroy(gameObject);
+		}
 	}
 }
