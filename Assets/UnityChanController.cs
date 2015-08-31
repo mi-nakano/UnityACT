@@ -3,7 +3,8 @@ using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 public class UnityChanController : MonoBehaviour {
-	private const float SPEED = 0.1F; 
+	private const float SPEED = 0.1F;
+	private const float DISTANCE = 0.5F;
 
 	private CharacterController controller;
 	private Animator animator;
@@ -34,9 +35,9 @@ public class UnityChanController : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Space) && animator.GetBool(attackId) == false) {
 			animator.SetBool (attackId, true);
 			// shoot bullets
-			Instantiate (Bullet,
-			             new Vector3 (transform.position.x, transform.position.y, transform.position.z + 1),
-			             transform.rotation);
+			Vector3 bulletPos = new Vector3(transform.position.x, controller.center.y, transform.position.z);
+			bulletPos += transform.forward * DISTANCE;
+			Instantiate (Bullet, bulletPos, transform.rotation);
 		}
 	}
 
