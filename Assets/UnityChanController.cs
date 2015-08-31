@@ -28,11 +28,10 @@ public class UnityChanController : MonoBehaviour {
 	void Update () {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 		if (state.IsTag ("movable")) {
-			animator.SetBool (attackId, false);
 			move();
 		}
 
-		if (Input.GetKey (KeyCode.Space) && animator.GetBool(attackId) == false) {
+		if (Input.GetKeyDown (KeyCode.Space) && (animator.GetBool(attackId) == false)) {
 			animator.SetBool (attackId, true);
 			// shoot bullets
 			Vector3 bulletPos = new Vector3(transform.position.x, controller.center.y, transform.position.z);
