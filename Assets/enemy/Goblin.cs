@@ -1,25 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Goblin : MonoBehaviour {
+public class Goblin : AbstractEnemy {
 	private const float SPEED = 0.03F;
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
 	private const float ATTACK_DISTANCE = 1F;
 
-	private Transform player;
-	private CharacterController controller;
 	private bool consious;
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
-		controller = GetComponent<CharacterController> ();
+		init ();
+	}
+
+	protected void init(){
+		base.init ();
+		hp = 20;
 		consious = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (isDead()){
+			Destroy(gameObject);
+			return;
+		}
+
 		Vector3 heading = player.position - transform.position;
 		if (consious == false && heading.magnitude < SEARCH_DISTANCE) {
 			print ("Goblin become consiousness!");
@@ -38,4 +45,5 @@ public class Goblin : MonoBehaviour {
 			controller.Move(heading.normalized * SPEED);
 		}
 	}
+
 }
