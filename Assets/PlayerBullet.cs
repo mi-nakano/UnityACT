@@ -20,4 +20,12 @@ public class PlayerBullet : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
+	void OnCollisionEnter (Collision col) {
+		string tag = col.gameObject.tag;
+		if (tag.Equals ("Stage")) {
+			print ("colision to Stage object");
+			Destroy(gameObject);
+		}
+	}
 }
