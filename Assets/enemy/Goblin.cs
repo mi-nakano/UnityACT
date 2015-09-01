@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class Goblin : MonoBehaviour {
-	private const float SPEED = 0.05F;
+	private const float SPEED = 0.03F;
+	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
 	private const float ATTACK_DISTANCE = 1F;
 
@@ -30,7 +31,7 @@ public class Goblin : MonoBehaviour {
 	}
 
 	private void think (Vector3 heading){
-		transform.rotation = Quaternion.LookRotation (heading);
+		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (heading), ROTATE_SPEED);
 		if (heading.magnitude < ATTACK_DISTANCE) {
 			print ("Goblin attack!");
 		} else {
