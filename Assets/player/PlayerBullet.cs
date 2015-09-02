@@ -25,7 +25,10 @@ public class PlayerBullet : MonoBehaviour {
 		string tag = col.gameObject.tag;
 		if (tag.Equals ("Stage")) {
 			print ("colision to Stage object");
-			Destroy(gameObject);
+			Destroy (gameObject);
+		} else if (tag.Equals ("Enemy")) {
+			print ("colision to Enemy object");
+			Destroy (gameObject);
 		}
 	}
 }
