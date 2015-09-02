@@ -15,15 +15,15 @@ public class Goblin : AbstractEnemy {
 	}
 
 	protected void init(){
+		MAX_HP = 20;
 		base.init ();
-		hp = 20;
 		consious = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (isDead()){
-			Destroy(gameObject);
+			dead ();
 			return;
 		}
 

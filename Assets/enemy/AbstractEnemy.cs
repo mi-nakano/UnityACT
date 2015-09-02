@@ -1,23 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-abstract public class AbstractEnemy : MonoBehaviour
-{
+abstract public class AbstractEnemy : MonoBehaviour {
+	public int MAX_HP;
 	protected int hp;
 	protected Transform player;
 	protected CharacterController controller;
 
-	// Use this for initialization
-	void Start () {
-	}
-
 	protected void init(){
+		hp = MAX_HP;
 		player = GameObject.FindGameObjectWithTag ("Player").transform;
 		controller = GetComponent<CharacterController> ();
-	}
-
-	// Update is called once per frame
-	void Update () {
 	}
 
 	protected bool isDead(){
