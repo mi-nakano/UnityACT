@@ -39,11 +39,14 @@ public class Goblin : AbstractEnemy {
 	}
 
 	private void think (Vector3 heading){
+		Animation animation = (Animation) GetComponent<Animation>();
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (heading), ROTATE_SPEED);
 		if (heading.magnitude < ATTACK_DISTANCE) {
 			print ("Goblin attack!");
+			animation.Play("attack01");
 		} else {
 			controller.Move(heading.normalized * SPEED);
+			animation.Play("run");
 		}
 	}
 
