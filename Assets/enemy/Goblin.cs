@@ -28,6 +28,7 @@ public class Goblin : AbstractEnemy {
 		}
 
 		Vector3 heading = player.position - transform.position;
+		heading.y = 0;
 		if (consious == false && heading.magnitude < SEARCH_DISTANCE) {
 			print ("Goblin become consiousness!");
 			consious = true;
