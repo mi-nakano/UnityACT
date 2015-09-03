@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class UnityChanController : MonoBehaviour {
+public class UnityChanController : AbstractPlayer {
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
 
@@ -13,6 +13,7 @@ public class UnityChanController : MonoBehaviour {
 	private int runId, attackId;
 
 	public GameObject Bullet;
+
 
 	// Use this for initialization
 	void Start () {
@@ -67,4 +68,5 @@ public class UnityChanController : MonoBehaviour {
 		}
 		moveVector.Normalize();
 	}
+
 }
