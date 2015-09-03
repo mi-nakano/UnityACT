@@ -12,6 +12,7 @@ public class UnityChanController : AbstractPlayer {
 	private Vector3 moveVector;
 	private int runId, attackId;
 
+	public int HP = 100;
 	public GameObject Bullet;
 
 
@@ -23,6 +24,7 @@ public class UnityChanController : AbstractPlayer {
 		attackId = Animator.StringToHash ("is_attacking");
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
+		hp = HP;
 	}
 		
 	// Update is called once per frame
