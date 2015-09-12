@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class UnityChanController : AbstractPlayer {
+	public int HP = 100;
+	public GameObject Bullet;
+	public GameObject HPText;
+
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
 
@@ -11,9 +16,7 @@ public class UnityChanController : AbstractPlayer {
 	private AnimatorStateInfo state;
 	private Vector3 moveVector;
 	private int runId, attackId;
-
-	public int HP = 100;
-	public GameObject Bullet;
+	private Text hptext;
 
 
 	// Use this for initialization
@@ -25,6 +28,7 @@ public class UnityChanController : AbstractPlayer {
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
 		hp = HP;
+		hptext = HPText.GetComponent<Text> ();
 	}
 		
 	// Update is called once per frame
@@ -41,6 +45,7 @@ public class UnityChanController : AbstractPlayer {
 			bulletPos += transform.forward * DISTANCE;
 			Instantiate (Bullet, bulletPos, transform.rotation);
 		}
+		hptext.text = "HP:" + hp;
 	}
 
 	private void Move(){
