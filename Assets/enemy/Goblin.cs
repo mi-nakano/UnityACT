@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Goblin : AbstractEnemy {
 	private const float SPEED = 0.03F;
+	private const int POWER = 10;
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
 	private const float ATTACK_DISTANCE = 1F;
@@ -34,7 +35,7 @@ public class Goblin : AbstractEnemy {
 			return;
 		}
 
-		Vector3 heading = player.position - transform.position;
+		Vector3 heading = player.transform.position - transform.position;
 		heading.y = 0;
 		if (consious == false && heading.magnitude < SEARCH_DISTANCE) {
 			print ("Goblin become consiousness!");
@@ -50,6 +51,7 @@ public class Goblin : AbstractEnemy {
 		if (animation.IsPlaying ("attack01")) {
 			if (hand.IsFirstHited()){
 				print ("GoblinHand hit player");
+				DamageToPlayer(POWER);
 			}
 			return;
 		}

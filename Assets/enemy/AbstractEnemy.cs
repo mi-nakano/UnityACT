@@ -4,13 +4,17 @@ using System.Collections;
 abstract public class AbstractEnemy : MonoBehaviour {
 	public int MAX_HP;
 	protected int hp;
-	protected Transform player;
+	protected GameObject player;
 	protected CharacterController controller;
 
 	protected void Init(){
 		hp = MAX_HP;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		controller = GetComponent<CharacterController> ();
+	}
+
+	protected void DamageToPlayer(int damage){
+		player.SendMessage ("Damage", damage);
 	}
 
 	protected bool IsDead(){
