@@ -60,7 +60,7 @@ public class Goblin : AbstractEnemy {
 			return;
 		}
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (heading), ROTATE_SPEED);
-		if (heading.magnitude < ATTACK_DISTANCE) {
+		if (heading.magnitude < ATTACK_DISTANCE && IsFacedToPlayer(heading)) {
 			print ("Goblin attack!");
 			animation.Play("attack01");
 			isAttacked = true;
@@ -68,6 +68,14 @@ public class Goblin : AbstractEnemy {
 			controller.Move(heading.normalized * SPEED);
 			animation.Play("run");
 		}
+	}
+
+	private bool IsFacedToPlayer(Vector3 heading){
+		float angle = Vector3.Angle(heading, transform.forward);
+		if(angle < 5f){
+			return true;
+		}
+		return false;
 	}
 
 	private void Delay(){
