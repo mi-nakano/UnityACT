@@ -3,47 +3,86 @@ using System.Collections;
 
 public class Goblin : AbstractEnemy {
 	private const float SPEED = 0.03F;
+	private const int POWER = 10;
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
 	private const float ATTACK_DISTANCE = 1F;
+	private const int DELAY = 20;
 
+	private GoblinHand hand;
 	private bool consious;
+	private bool isAttacked;
+	private int counter;
 
 	// Use this for initialization
 	void Start () {
-		init ();
+		Init ();
 	}
 
-	protected void init(){
+	protected void Init(){
 		MAX_HP = 20;
-		base.init ();
+		base.Init ();
+		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
+		isAttacked = false;
+		counter = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (isDead()){
-			dead ();
+		if (IsDead()){
+			Dead ();
 			return;
 		}
 
-		Vector3 heading = player.position - transform.position;
+		Vector3 heading = player.transform.position - transform.position;
 		heading.y = 0;
 		if (consious == false && heading.magnitude < SEARCH_DISTANCE) {
 			print ("Goblin become consiousness!");
 			consious = true;
 		}
 		if (consious == true) {
-			think(heading);
+			Think(heading);
 		}
 	}
 
-	private void think (Vector3 heading){
+	private void Think (Vector3 heading){
+		Animation animation = (Animation) GetComponent<Animation>();
+		if (animation.IsPlaying ("attack01")) {
+			if (hand.IsFirstHited()){
+				print ("GoblinHand hit player");
+				DamageToPlayer(POWER);
+			}
+			return;
+		}
+		if (isAttacked) {
+			Delay ();
+			return;
+		}
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (heading), ROTATE_SPEED);
-		if (heading.magnitude < ATTACK_DISTANCE) {
+		if (heading.magnitude < ATTACK_DISTANCE && IsFacedToPlayer(heading)) {
 			print ("Goblin attack!");
+			animation.Play("attack01");
+			isAttacked = true;
 		} else {
 			controller.Move(heading.normalized * SPEED);
+			animation.Play("run");
+		}
+	}
+
+	private bool IsFacedToPlayer(Vector3 heading){
+		float angle = Vector3.Angle(heading, transform.forward);
+		if(angle < 5f){
+			return true;
+		}
+		return false;
+	}
+
+	private void Delay(){
+		counter ++;
+		if (counter > DELAY) {
+			isAttacked = false;
+			counter = 0;
 		}
 	}
 

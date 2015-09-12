@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Animator))]
-public class UnityChanController : MonoBehaviour {
+public class UnityChanController : AbstractPlayer {
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
 
@@ -12,7 +12,9 @@ public class UnityChanController : MonoBehaviour {
 	private Vector3 moveVector;
 	private int runId, attackId;
 
+	public int HP = 100;
 	public GameObject Bullet;
+
 
 	// Use this for initialization
 	void Start () {
@@ -22,13 +24,14 @@ public class UnityChanController : MonoBehaviour {
 		attackId = Animator.StringToHash ("is_attacking");
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
+		hp = HP;
 	}
 		
 	// Update is called once per frame
 	void Update () {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 		if (state.IsTag ("movable")) {
-			move();
+			Move();
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && (animator.GetBool(attackId) == false)) {
@@ -40,8 +43,8 @@ public class UnityChanController : MonoBehaviour {
 		}
 	}
 
-	private void move(){
-		setMoveVector ();
+	private void Move(){
+		SetMoveVector ();
 		if (moveVector.Equals (Vector3.zero)) {		// stop
 			animator.SetBool (runId, false);
 		} else {									// running
@@ -51,7 +54,7 @@ public class UnityChanController : MonoBehaviour {
 		}
 	}
 	
-	private void setMoveVector(){
+	private void SetMoveVector(){
 		moveVector = Vector3.zero;
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			moveVector.z += 1;
@@ -67,4 +70,5 @@ public class UnityChanController : MonoBehaviour {
 		}
 		moveVector.Normalize();
 	}
+
 }
