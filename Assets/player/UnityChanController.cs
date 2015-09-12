@@ -31,7 +31,7 @@ public class UnityChanController : AbstractPlayer {
 	void Update () {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 		if (state.IsTag ("movable")) {
-			move();
+			Move();
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && (animator.GetBool(attackId) == false)) {
@@ -43,8 +43,8 @@ public class UnityChanController : AbstractPlayer {
 		}
 	}
 
-	private void move(){
-		setMoveVector ();
+	private void Move(){
+		SetMoveVector ();
 		if (moveVector.Equals (Vector3.zero)) {		// stop
 			animator.SetBool (runId, false);
 		} else {									// running
@@ -54,7 +54,7 @@ public class UnityChanController : AbstractPlayer {
 		}
 	}
 	
-	private void setMoveVector(){
+	private void SetMoveVector(){
 		moveVector = Vector3.zero;
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			moveVector.z += 1;

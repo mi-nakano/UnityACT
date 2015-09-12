@@ -15,12 +15,12 @@ public class Goblin : AbstractEnemy {
 
 	// Use this for initialization
 	void Start () {
-		init ();
+		Init ();
 	}
 
-	protected void init(){
+	protected void Init(){
 		MAX_HP = 20;
-		base.init ();
+		base.Init ();
 		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
@@ -29,8 +29,8 @@ public class Goblin : AbstractEnemy {
 	
 	// Update is called once per frame
 	void Update () {
-		if (isDead()){
-			dead ();
+		if (IsDead()){
+			Dead ();
 			return;
 		}
 
@@ -41,11 +41,11 @@ public class Goblin : AbstractEnemy {
 			consious = true;
 		}
 		if (consious == true) {
-			think(heading);
+			Think(heading);
 		}
 	}
 
-	private void think (Vector3 heading){
+	private void Think (Vector3 heading){
 		Animation animation = (Animation) GetComponent<Animation>();
 		if (animation.IsPlaying ("attack01")) {
 			if (hand.IsFirstHited()){
@@ -54,7 +54,7 @@ public class Goblin : AbstractEnemy {
 			return;
 		}
 		if (isAttacked) {
-			delay ();
+			Delay ();
 			return;
 		}
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (heading), ROTATE_SPEED);
@@ -68,7 +68,7 @@ public class Goblin : AbstractEnemy {
 		}
 	}
 
-	private void delay(){
+	private void Delay(){
 		counter ++;
 		if (counter > DELAY) {
 			isAttacked = false;

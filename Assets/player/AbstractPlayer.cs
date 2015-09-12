@@ -4,7 +4,7 @@ using System.Collections;
 public class AbstractPlayer : MonoBehaviour {
 	protected int hp;
 
-	public void damage(int power){
+	public void Damage(int power){
 		print (power + " damage to Player!");
 		hp -= power;
 	}

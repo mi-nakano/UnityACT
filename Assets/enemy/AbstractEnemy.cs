@@ -7,20 +7,20 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	protected Transform player;
 	protected CharacterController controller;
 
-	protected void init(){
+	protected void Init(){
 		hp = MAX_HP;
-		player = GameObject.FindGameObjectWithTag ("Player").transform;
+		player = GameObject.FindGameObjectWithTag ("Player");
 		controller = GetComponent<CharacterController> ();
 	}
 
-	protected bool isDead(){
+	protected bool IsDead(){
 		if (hp <= 0) {
 			return true;
 		}
 		return false;
 	}
 
-	protected void dead(){
+	protected void Dead(){
 		Destroy (gameObject);
 	}
 }
