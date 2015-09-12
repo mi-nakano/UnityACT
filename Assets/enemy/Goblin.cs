@@ -8,6 +8,7 @@ public class Goblin : AbstractEnemy {
 	private const float ATTACK_DISTANCE = 1F;
 	private const int DELAY = 20;
 
+	private GoblinHand hand;
 	private bool consious;
 	private bool isAttacked;
 	private int counter;
@@ -20,6 +21,7 @@ public class Goblin : AbstractEnemy {
 	protected void init(){
 		MAX_HP = 20;
 		base.init ();
+		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
 		counter = 0;
@@ -46,6 +48,9 @@ public class Goblin : AbstractEnemy {
 	private void think (Vector3 heading){
 		Animation animation = (Animation) GetComponent<Animation>();
 		if (animation.IsPlaying ("attack01")) {
+			if (hand.IsFirstHited()){
+				print ("GoblinHand hit player");
+			}
 			return;
 		}
 		if (isAttacked) {
