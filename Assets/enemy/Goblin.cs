@@ -56,6 +56,7 @@ public class Goblin : AbstractEnemy {
 			return;
 		}
 		if (isAttacked) {
+			hand.Init();
 			Delay ();
 			return;
 		}

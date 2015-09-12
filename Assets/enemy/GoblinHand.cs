@@ -7,13 +7,12 @@ public class GoblinHand : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Init ();
+	}
+
+	public void Init(){
 		isColide = false;
 		isHited = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 
 	void OnCollisionEnter (Collision col) {
