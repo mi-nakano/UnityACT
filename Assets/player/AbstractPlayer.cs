@@ -24,9 +24,9 @@ public class AbstractPlayer : MonoBehaviour {
 			return;
 		}
 		print (power + " damage to Player!");
+		controller.transform.rotation = Quaternion.LookRotation (source.GetDirection());
 		animator.SetTrigger ("damage_trig");
 		hp -= power;
 		hp = Mathf.Max (0, hp);
-//		controller.
 	}
 }
