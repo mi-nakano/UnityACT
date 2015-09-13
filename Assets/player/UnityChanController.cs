@@ -10,9 +10,7 @@ public class UnityChanController : AbstractPlayer {
 
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
-
-	private CharacterController controller;
-	private Animator animator;
+	
 	private AnimatorStateInfo state;
 	private Vector3 moveVector;
 	private int runId, attackId;
@@ -21,8 +19,7 @@ public class UnityChanController : AbstractPlayer {
 
 	// Use this for initialization
 	void Start () {
-		controller = GetComponent<CharacterController> ();
-		animator = GetComponent<Animator> ();
+		base.Init ();
 		runId = Animator.StringToHash ("is_running");
 		attackId = Animator.StringToHash ("is_attacking");
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
