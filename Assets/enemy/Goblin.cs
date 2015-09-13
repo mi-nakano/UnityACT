@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class Goblin : AbstractEnemy {
-	public int MAX_HP = 20;
-	public int POWER = 10;
+	public int MAX_HP;
+	public int POWER;
 	private const float SPEED = 0.03F;
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
