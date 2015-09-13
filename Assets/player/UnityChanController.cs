@@ -10,8 +10,7 @@ public class UnityChanController : AbstractPlayer {
 
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
-	
-	private AnimatorStateInfo state;
+
 	private Vector3 moveVector;
 	private int runId, attackId;
 	private Text hptext;
@@ -30,7 +29,7 @@ public class UnityChanController : AbstractPlayer {
 		
 	// Update is called once per frame
 	void Update () {
-		state = animator.GetCurrentAnimatorStateInfo (0);
+		base.Routine ();
 		if (state.IsTag ("movable")) {
 			Move();
 		}
