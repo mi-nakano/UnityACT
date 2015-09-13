@@ -6,12 +6,14 @@ public class PlayerBullet : MonoBehaviour {
 	private const int SPEED = 10;
 	private const int ALIVE_TIME = 100;
 
+	private bool isFirstColide;
 	private int counter;
 
 	// Use this for initialization
 	void Start () {
 		tag = "PlayerBullet";
 		GetComponent<Rigidbody>().velocity = transform.forward.normalized * SPEED;
+		isFirstColide = true;
 		counter = 0;
 	}
 	
@@ -24,6 +26,9 @@ public class PlayerBullet : MonoBehaviour {
 	}
 
 	void OnCollisionEnter (Collision col) {
+		if (!isFirstColide)
+			return;
+		isFirstColide = false;
 		GameObject obj = col.gameObject;
 		string tag = obj.tag;
 		if (tag.Equals ("Stage")) {
