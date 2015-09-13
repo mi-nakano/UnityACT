@@ -7,5 +7,6 @@ public class AbstractPlayer : MonoBehaviour {
 	public void Damage(int power){
 		print (power + " damage to Player!");
 		hp -= power;
+		hp = Mathf.Max (0, hp);
 	}
 }
