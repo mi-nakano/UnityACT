@@ -12,9 +12,12 @@ abstract public class AbstractEnemy : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		controller = GetComponent<CharacterController> ();
 	}
-
-	protected void DamageToPlayer(int damage){
-		player.SendMessage ("Damage", damage);
+	
+	protected void DamageToPlayer(DamageSource damageSource){
+		player.SendMessage ("Damage", damageSource);
+	}
+	protected void DamageToPlayer(int power, Vector3 direction){
+		DamageToPlayer (new DamageSource (power, direction));
 	}
 
 	protected bool IsDead(){

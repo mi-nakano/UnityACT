@@ -51,7 +51,7 @@ public class Goblin : AbstractEnemy {
 		if (animation.IsPlaying ("attack01")) {
 			if (hand.IsFirstHited()){
 				print ("GoblinHand hit player");
-				DamageToPlayer(POWER);
+				DamageToPlayer(POWER, heading);
 			}
 			return;
 		}

@@ -17,7 +17,8 @@ public class AbstractPlayer : MonoBehaviour {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 	}
 
-	public void Damage(int power){
+	public void Damage(DamageSource source){
+		int power = source.GetPower ();
 		if (state.IsTag("damage")){
 			print(power + " damage to player, but nodamage");
 			return;
@@ -26,5 +27,6 @@ public class AbstractPlayer : MonoBehaviour {
 		animator.SetTrigger ("damage_trig");
 		hp -= power;
 		hp = Mathf.Max (0, hp);
+//		controller.
 	}
 }
