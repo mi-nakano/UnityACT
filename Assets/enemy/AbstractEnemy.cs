@@ -12,6 +12,12 @@ abstract public class AbstractEnemy : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		controller = GetComponent<CharacterController> ();
 	}
+
+	protected void Damage(DamageSource damageSource){
+		print (damageSource.GetPower () + " damage to enemy");
+		hp -= damageSource.GetPower ();
+		hp = Mathf.Max (0, hp);
+	}
 	
 	protected void DamageToPlayer(DamageSource damageSource){
 		player.SendMessage ("Damage", damageSource);
@@ -28,6 +34,7 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	}
 
 	protected void Dead(){
+		print ("Dead");
 		Destroy (gameObject);
 	}
 }
