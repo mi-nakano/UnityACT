@@ -11,6 +11,7 @@ public class UnityChanController : AbstractPlayer {
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
 
+	private AudioSource audio;
 	private Vector3 moveVector;
 	private int runId, attackId;
 	private Text hptext;
@@ -19,6 +20,7 @@ public class UnityChanController : AbstractPlayer {
 	// Use this for initialization
 	void Start () {
 		base.Init ();
+		audio = GetComponent<AudioSource> ();
 		runId = Animator.StringToHash ("is_running");
 		attackId = Animator.StringToHash ("is_attacking");
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
@@ -70,6 +72,11 @@ public class UnityChanController : AbstractPlayer {
 			moveVector.x -= 1;
 		}
 		moveVector.Normalize();
+	}
+
+	override protected void Damage(DamageSource source){
+		base.Damage (source);
+		audio.PlayDelayed(0.3f);
 	}
 
 }

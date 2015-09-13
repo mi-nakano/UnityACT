@@ -26,7 +26,7 @@ public class AbstractPlayer : MonoBehaviour {
 		Damage (source);
 	}
 
-	protected void Damage(DamageSource source){
+	virtual protected void Damage(DamageSource source){
 		int power = source.GetPower ();
 		print (power + " damage to Player!");
 		controller.transform.rotation = Quaternion.LookRotation (source.GetDirection());
