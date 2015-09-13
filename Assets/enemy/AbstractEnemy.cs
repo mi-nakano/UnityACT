@@ -2,30 +2,63 @@ using UnityEngine;
 using System.Collections;
 
 abstract public class AbstractEnemy : MonoBehaviour {
-	public int MAX_HP;
 	protected int hp;
+	protected bool isDead;
+	protected int deadCounter;
+	protected int DEAD_COUNT = 300;
 	protected GameObject player;
 	protected CharacterController controller;
 
-	protected void Init(){
-		hp = MAX_HP;
+
+	void Start () {
+		Init ();
+	}
+
+	virtual protected void Init(){
+		isDead = false;
+		deadCounter = 0;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		controller = GetComponent<CharacterController> ();
 	}
 
-	protected void DamageToPlayer(int damage){
-		player.SendMessage ("Damage", damage);
+	void Update(){
+		Routine ();
 	}
 
-	protected bool IsDead(){
-		if (hp <= 0) {
-			return true;
+	virtual protected void Routine(){
+		if (isDead) {
+			Dead ();
+		} else {
+			Alive ();
 		}
-		return false;
 	}
 
-	protected void Dead(){
-		Destroy (gameObject);
+	abstract protected void Alive ();
+
+	abstract protected void Death ();
+
+	virtual protected void Dead(){
+		deadCounter ++;
+		if (deadCounter > DEAD_COUNT) {
+			Destroy(gameObject);
+		}
+	}
+
+	protected void Damage(DamageSource damageSource){
+		print (damageSource.GetPower () + " damage to enemy");
+		hp -= damageSource.GetPower ();
+		if(hp <= 0){
+			hp = 0;
+			isDead = true;
+			Death();
+		}
+	}
+	
+	protected void DamageToPlayer(DamageSource damageSource){
+		player.SendMessage ("Damage", damageSource);
+	}
+	protected void DamageToPlayer(int power, Vector3 direction){
+		DamageToPlayer (new DamageSource (power, direction));
 	}
 }
 

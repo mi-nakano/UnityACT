@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Goblin : AbstractEnemy {
+	private const int MAX_HP = 20;
 	private const float SPEED = 0.03F;
 	private const int POWER = 10;
 	private const float ROTATE_SPEED = 0.1F;
@@ -9,32 +10,24 @@ public class Goblin : AbstractEnemy {
 	private const float ATTACK_DISTANCE = 1F;
 	private const int DELAY = 20;
 
+	private Animation animation;
 	private GoblinHand hand;
 	private bool consious;
 	private bool isAttacked;
 	private int counter;
 
-	// Use this for initialization
-	void Start () {
-		Init ();
-	}
 
-	protected void Init(){
-		MAX_HP = 20;
+	override protected void Init(){
 		base.Init ();
+		hp = MAX_HP;
+		animation = (Animation)GetComponent<Animation> ();
 		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
 		counter = 0;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (IsDead()){
-			Dead ();
-			return;
-		}
 
+	override protected void Alive () {
 		Vector3 heading = player.transform.position - transform.position;
 		heading.y = 0;
 		if (consious == false && heading.magnitude < SEARCH_DISTANCE) {
@@ -47,15 +40,15 @@ public class Goblin : AbstractEnemy {
 	}
 
 	private void Think (Vector3 heading){
-		Animation animation = (Animation) GetComponent<Animation>();
 		if (animation.IsPlaying ("attack01")) {
 			if (hand.IsFirstHited()){
 				print ("GoblinHand hit player");
-				DamageToPlayer(POWER);
+				DamageToPlayer(POWER, heading);
 			}
 			return;
 		}
 		if (isAttacked) {
+			hand.Init();
 			Delay ();
 			return;
 		}
@@ -84,6 +77,10 @@ public class Goblin : AbstractEnemy {
 			isAttacked = false;
 			counter = 0;
 		}
+	}
+
+	override protected void Death(){
+		animation.Play ("dead");
 	}
 
 }
