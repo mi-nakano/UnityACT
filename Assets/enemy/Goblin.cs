@@ -11,6 +11,7 @@ public class Goblin : AbstractEnemy {
 	private const int DELAY = 20;
 
 	private Animation animation;
+	private AudioSource audio;
 	private GoblinHand hand;
 	private bool consious;
 	private bool isAttacked;
@@ -21,6 +22,7 @@ public class Goblin : AbstractEnemy {
 		base.Init ();
 		hp = MAX_HP;
 		animation = (Animation)GetComponent<Animation> ();
+		audio = gameObject.GetComponent<AudioSource>();
 		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
@@ -81,6 +83,7 @@ public class Goblin : AbstractEnemy {
 
 	override protected void Death(){
 		animation.Play ("dead");
+		audio.Play ();
 	}
 
 }
