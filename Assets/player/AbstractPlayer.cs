@@ -17,12 +17,17 @@ public class AbstractPlayer : MonoBehaviour {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 	}
 
-	public void Damage(DamageSource source){
+	public void Hit(DamageSource source){
 		int power = source.GetPower ();
 		if (state.IsTag("damage")){
 			print(power + " damage to player, but nodamage");
 			return;
 		}
+		Damage (source);
+	}
+
+	protected void Damage(DamageSource source){
+		int power = source.GetPower ();
 		print (power + " damage to Player!");
 		controller.transform.rotation = Quaternion.LookRotation (source.GetDirection());
 		animator.SetTrigger ("damage_trig");
