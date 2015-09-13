@@ -5,7 +5,7 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	protected int hp;
 	protected bool isDead;
 	protected int deadCounter;
-	protected int DEAD_COUNT = 30;
+	protected int DEAD_COUNT = 300;
 	protected GameObject player;
 	protected CharacterController controller;
 
@@ -35,6 +35,8 @@ abstract public class AbstractEnemy : MonoBehaviour {
 
 	abstract protected void Alive ();
 
+	abstract protected void Death ();
+
 	virtual protected void Dead(){
 		deadCounter ++;
 		if (deadCounter > DEAD_COUNT) {
@@ -48,6 +50,7 @@ abstract public class AbstractEnemy : MonoBehaviour {
 		if(hp <= 0){
 			hp = 0;
 			isDead = true;
+			Death();
 		}
 	}
 	

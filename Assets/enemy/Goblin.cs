@@ -83,8 +83,8 @@ public class Goblin : AbstractEnemy {
 		}
 	}
 
-	override protected void Dead(){
-		base.Dead ();
+	override protected void Death(){
+		animation.Play ("dead");
 	}
 
 }
