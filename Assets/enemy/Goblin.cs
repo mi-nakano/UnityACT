@@ -8,7 +8,7 @@ public class Goblin : AbstractEnemy {
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
 	private const float ATTACK_DISTANCE = 1F;
-	private const int DELAY = 20;
+	private const int DELAY = 60;
 
 	private Animation animation;
 	private AudioSource audio;
