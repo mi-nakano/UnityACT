@@ -20,15 +20,11 @@ public class Goblin : AbstractEnemy {
 	override protected void Init(){
 		base.Init ();
 		hp = MAX_HP;
+		animation = (Animation)GetComponent<Animation> ();
 		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
 		counter = 0;
-	}
-	
-	override protected void Routine(){
-		animation = (Animation)GetComponent<Animation> ();
-		base.Routine ();
 	}
 
 	override protected void Alive () {
