@@ -4,6 +4,7 @@ using System.Collections;
 public class Goblin : AbstractEnemy {
 	public int MAX_HP;
 	public int POWER;
+	public AbstractEnemyAttack hand;
 	private const float SPEED = 0.03F;
 	private const float ROTATE_SPEED = 0.1F;
 	private const float SEARCH_DISTANCE = 8F;
@@ -12,7 +13,6 @@ public class Goblin : AbstractEnemy {
 
 	private Animation animation;
 	private AudioSource audio;
-	private GoblinHand hand;
 	private bool consious;
 	private bool isAttacked;
 	private int counter;
@@ -23,7 +23,6 @@ public class Goblin : AbstractEnemy {
 		hp = MAX_HP;
 		animation = (Animation)GetComponent<Animation> ();
 		audio = gameObject.GetComponent<AudioSource>();
-		hand = GetComponentInChildren<GoblinHand> ();
 		consious = false;
 		isAttacked = false;
 		counter = 0;
@@ -43,7 +42,6 @@ public class Goblin : AbstractEnemy {
 
 	private void Think (Vector3 heading){
 		if (animation.IsPlaying ("attack01")) {
-			hand.Activate();
 			if (hand.IsFirstHited()){
 				print ("GoblinHand hit player");
 				DamageToPlayer(POWER, heading);
@@ -60,6 +58,7 @@ public class Goblin : AbstractEnemy {
 		if (heading.magnitude < ATTACK_DISTANCE && IsFacedToPlayer(heading)) {
 			print ("Goblin attack!");
 			animation.Play("attack01");
+			hand.Activate();
 			isAttacked = true;
 		} else {
 			controller.Move(heading.normalized * SPEED);

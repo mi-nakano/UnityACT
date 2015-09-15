@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GoblinHand : AbstractEnemyAttack {
-
+public class NormalAttack : AbstractEnemyAttack {
+	
 	void OnCollisionEnter (Collision col) {
 		if (!isActive() || !isCollideToPlayer (col))
 			return;
 		isColide = true;
 	}
-
+	
 	void OnCollisionExit(Collision col){
 		if (!isActive ())
 			return;

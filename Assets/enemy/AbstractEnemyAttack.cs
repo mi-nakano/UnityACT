@@ -19,6 +19,7 @@ public class AbstractEnemyAttack : MonoBehaviour {
 
 	public void Activate(){
 		flag = true;
+		Init ();
 	}
 
 	public void Deactivate(){
