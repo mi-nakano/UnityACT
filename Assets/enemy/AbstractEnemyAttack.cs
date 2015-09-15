@@ -3,6 +3,7 @@ using System.Collections;
 
 public class AbstractEnemyAttack : MonoBehaviour {
 
+	protected bool flag;
 	protected bool isColide;
 	protected bool isHited;
 
@@ -14,6 +15,18 @@ public class AbstractEnemyAttack : MonoBehaviour {
 	virtual public void Init(){
 		isColide = false;
 		isHited = false;
+	}
+
+	public void Activate(){
+		flag = true;
+	}
+
+	public void Deactivate(){
+		flag = false;
+	}
+
+	public bool isActive(){
+		return flag;
 	}
 
 	protected bool isCollideToPlayer (Collision col){

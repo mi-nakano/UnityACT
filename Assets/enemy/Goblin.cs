@@ -43,12 +43,14 @@ public class Goblin : AbstractEnemy {
 
 	private void Think (Vector3 heading){
 		if (animation.IsPlaying ("attack01")) {
+			hand.Activate();
 			if (hand.IsFirstHited()){
 				print ("GoblinHand hit player");
 				DamageToPlayer(POWER, heading);
 			}
 			return;
 		}
+		hand.Deactivate ();
 		if (isAttacked) {
 			hand.Init();
 			Delay ();
