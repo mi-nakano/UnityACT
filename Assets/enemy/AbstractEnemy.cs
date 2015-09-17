@@ -45,6 +45,8 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	}
 
 	protected void Damage(DamageSource damageSource){
+		if (isDead)
+			return;
 		print (damageSource.GetPower () + " damage to enemy");
 		hp -= damageSource.GetPower ();
 		if(hp <= 0){
