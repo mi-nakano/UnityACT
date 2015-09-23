@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AbstractPlayer : MonoBehaviour {
+public abstract class AbstractPlayer : MonoBehaviour {
 	protected int hp;
 	protected CharacterController controller;
 	protected Animator animator;
@@ -27,9 +27,11 @@ public class AbstractPlayer : MonoBehaviour {
 		state = animator.GetCurrentAnimatorStateInfo (0);
 	}
 
+	abstract protected bool IsDamaging ();
+
 	public void Hit(DamageSource source){
 		int power = source.GetPower ();
-		if (state.IsTag("damage")){
+		if (IsDamaging()){
 			print(power + " damage to player, but nodamage");
 			return;
 		}

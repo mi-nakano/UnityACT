@@ -57,7 +57,7 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	}
 	
 	protected void DamageToPlayer(DamageSource damageSource){
-		player.SendMessage ("Damage", damageSource);
+		player.SendMessage ("Hit", damageSource);
 	}
 	protected void DamageToPlayer(int power, Vector3 direction){
 		DamageToPlayer (new DamageSource (power, direction));

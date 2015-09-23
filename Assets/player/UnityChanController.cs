@@ -11,11 +11,13 @@ public class UnityChanController : AbstractPlayer {
 
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
+	private const int ARMORCOUNT = 180;
 
 	private AudioSource audio;
 	private Vector3 moveVector;
 	private int runId, attackId;
 	private Text hptext;
+	private int armorCounter;
 
 
 	override protected void Init () {
@@ -26,6 +28,7 @@ public class UnityChanController : AbstractPlayer {
 		controller.Move (new Vector3 (0, -20, 0));		// Set on ground
 		moveVector = Vector3.zero;
 		hp = HP;
+		armorCounter = 0;
 		hptext = HPText.GetComponent<Text> ();
 	}
 
@@ -35,6 +38,7 @@ public class UnityChanController : AbstractPlayer {
 		if (state.IsTag ("movable")) {
 			Move();
 		}
+		UpdateArmor ();
 
 		if (Input.GetKeyDown (KeyCode.Space) && (animator.GetBool(attackId) == false)) {
 			animator.SetBool (attackId, true);
@@ -78,9 +82,27 @@ public class UnityChanController : AbstractPlayer {
 		moveVector.Normalize();
 	}
 
+	private void UpdateArmor(){
+		if (armorCounter == 0) {
+			return;
+		}
+		armorCounter ++;
+		if (armorCounter > ARMORCOUNT) {
+			armorCounter = 0;
+			print ("End superArmor");
+		}
+	}
+
+	override protected bool IsDamaging(){
+		if (armorCounter != 0)
+			return true;
+		return false;
+	}
+
 	override protected void Damage(DamageSource source){
 		base.Damage (source);
 		audio.PlayDelayed(0.3f);
+		armorCounter = 1;
 	}
 
 }
