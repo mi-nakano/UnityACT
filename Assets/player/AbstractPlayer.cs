@@ -1,25 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AbstractPlayer : MonoBehaviour {
+public abstract class AbstractPlayer : MonoBehaviour {
 	protected int hp;
 	protected CharacterController controller;
 	protected Animator animator;
 	protected AnimatorStateInfo state;
 
 
-	protected void Init(){
+	// Use this for initialization
+	void Start(){
+		Init ();
+	}
+
+	// Update is called once per frame
+	void Update(){
+		Routine ();
+	}
+
+	virtual protected void Init(){
 		controller = GetComponent<CharacterController> ();
 		animator = GetComponent<Animator> ();
 	}
 
-	protected void Routine(){
+	virtual protected void Routine(){
 		state = animator.GetCurrentAnimatorStateInfo (0);
 	}
 
+	abstract protected bool IsDamaging ();
+
 	public void Hit(DamageSource source){
 		int power = source.GetPower ();
-		if (state.IsTag("damage")){
+		if (IsDamaging()){
 			print(power + " damage to player, but nodamage");
 			return;
 		}
