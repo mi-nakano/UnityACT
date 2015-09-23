@@ -12,6 +12,7 @@ public class UnityChanController : AbstractPlayer {
 	private const float SPEED = 0.1F;
 	private const float DISTANCE = 0.5F;
 	private const int ARMORCOUNT = 180;
+	private Vector3 GRAVITY = new Vector3 (0, -9.81F, 0);
 
 	private AudioSource audio;
 	private Vector3 moveVector;
@@ -60,7 +61,7 @@ public class UnityChanController : AbstractPlayer {
 			Vector3 right = Camera.transform.TransformDirection(Vector3.right);
 			Vector3 direction = forward * moveVector.z + right * moveVector.x;
 			direction = direction.normalized;
-			controller.Move (direction * SPEED);
+			controller.Move (direction * SPEED + GRAVITY);
 			transform.rotation = Quaternion.LookRotation (direction);
 		}
 	}
