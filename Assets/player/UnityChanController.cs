@@ -56,7 +56,8 @@ public class UnityChanController : AbstractPlayer {
 			Vector3 forward = Camera.transform.TransformDirection(Vector3.forward);
 			Vector3 right = Camera.transform.TransformDirection(Vector3.right);
 			Vector3 direction = forward * moveVector.z + right * moveVector.x;
-			controller.Move (direction);
+			direction = direction.normalized;
+			controller.Move (direction * SPEED);
 			transform.rotation = Quaternion.LookRotation (direction);
 		}
 	}
