@@ -18,8 +18,7 @@ public class UnityChanController : AbstractPlayer {
 	private Text hptext;
 
 
-	// Use this for initialization
-	void Start () {
+	override protected void Init () {
 		base.Init ();
 		audio = GetComponent<AudioSource> ();
 		runId = Animator.StringToHash ("is_running");
@@ -29,9 +28,9 @@ public class UnityChanController : AbstractPlayer {
 		hp = HP;
 		hptext = HPText.GetComponent<Text> ();
 	}
-		
-	// Update is called once per frame
-	void Update () {
+
+
+	override protected void Routine () {
 		base.Routine ();
 		if (state.IsTag ("movable")) {
 			Move();

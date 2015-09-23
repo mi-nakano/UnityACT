@@ -8,12 +8,22 @@ public class AbstractPlayer : MonoBehaviour {
 	protected AnimatorStateInfo state;
 
 
-	protected void Init(){
+	// Use this for initialization
+	void Start(){
+		Init ();
+	}
+
+	// Update is called once per frame
+	void Update(){
+		Routine ();
+	}
+
+	virtual protected void Init(){
 		controller = GetComponent<CharacterController> ();
 		animator = GetComponent<Animator> ();
 	}
 
-	protected void Routine(){
+	virtual protected void Routine(){
 		state = animator.GetCurrentAnimatorStateInfo (0);
 	}
 
