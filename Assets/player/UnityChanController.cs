@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UnityChanController : AbstractPlayer {
 	public int HP = 100;
 	public GameObject Bullet;
+	public GameObject Camera;
 	public GameObject HPText;
 
 	private const float SPEED = 0.1F;
@@ -52,8 +53,12 @@ public class UnityChanController : AbstractPlayer {
 			animator.SetBool (runId, false);
 		} else {									// running
 			animator.SetBool (runId, true);	
-			controller.Move (moveVector * SPEED);
-			transform.rotation = Quaternion.LookRotation (moveVector);
+			Vector3 forward = Camera.transform.TransformDirection(Vector3.forward);
+			Vector3 right = Camera.transform.TransformDirection(Vector3.right);
+			Vector3 direction = forward * moveVector.z + right * moveVector.x;
+			direction = direction.normalized;
+			controller.Move (direction * SPEED);
+			transform.rotation = Quaternion.LookRotation (direction);
 		}
 	}
 	
