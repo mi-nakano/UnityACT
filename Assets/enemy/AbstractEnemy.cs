@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 abstract public class AbstractEnemy : MonoBehaviour {
+	static Vector3 GRAVITY = new Vector3 (0, -9.81F, 0);
+
 	protected int hp;
 	protected bool isDead;
 	protected int deadCounter;
@@ -34,6 +36,10 @@ abstract public class AbstractEnemy : MonoBehaviour {
 	}
 
 	abstract protected void Alive ();
+
+	protected void Move(Vector3 heading, float speed){
+		controller.Move(heading.normalized * speed + GRAVITY);
+	}
 
 	abstract protected void Death ();
 

@@ -61,7 +61,7 @@ public class Goblin : AbstractEnemy {
 			hand.Activate();
 			isAttacked = true;
 		} else {
-			controller.Move(heading.normalized * SPEED);
+			Move(heading, SPEED);
 			animation.Play("run");
 		}
 	}
